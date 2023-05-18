@@ -7,7 +7,7 @@ cur = con.cursor()
 user = ('Andrey Dogadkin', 'jvgger', 400044499303)
 
 cur.execute(
-    'INSERT INTO users(name, user_name, telegram_id) VALUES(?, ?, ?);',
+    'INSERT INTO users(id, name, user_name) VALUES(?, ?, ?);',
     user
 )
 con.commit()
