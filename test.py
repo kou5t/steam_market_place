@@ -26,5 +26,8 @@ def start_foo():
         time.sleep(5)
 
 
-start_foo()
+def bar():
+    print('SOBAKA')
 
+
+start_foo()
