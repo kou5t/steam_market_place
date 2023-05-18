@@ -26,9 +26,4 @@ def start_foo():
         time.sleep(5)
 
 
-def bar():
-    print('SOBAKA')
-    print('BABAKA')
-
-
 start_foo()
