@@ -28,6 +28,7 @@ def start_foo():
 
 def bar():
     print('SOBAKA')
+    print('BABAKA')
 
 
 start_foo()
