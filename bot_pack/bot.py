@@ -1,5 +1,7 @@
 import logging
 
+from settings import TOKEN
+from sqlite_for_bot_pack.database_bot import BotDataBase as BotD
 from aiogram import Bot, Dispatcher, executor, types
 
 API_TOKEN = 'BOT TOKEN HERE'
@@ -8,16 +10,29 @@ API_TOKEN = 'BOT TOKEN HERE'
 logging.basicConfig(level=logging.INFO)
 
 # Initialize bot and dispatcher
-bot = Bot(token=API_TOKEN)
+bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
 
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
-    """
-    This handler will be called when user sends `/start` or `/help` command
-    """
-    await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")
+
+    user_id = message['from']['id']
+    user_first_name = message['from']['first_name']
+    user_nik_name = message['from']['username']
+    check = BotD('../test_base.sqlite').check_user(
+        message['from']['id'],
+    )
+
+    if not check:
+        add = BotD('../test_base.sqlite').add_user_in_db(
+            user_id,
+            user_first_name,
+            user_nik_name
+        )
+        await message.reply(f'Привет {user_first_name}, кажется ты тут впервые')
+    else:
+        await message.reply(f'Привет {user_first_name}, кажется мы уже знакомы')
 
 
 @dp.message_handler()

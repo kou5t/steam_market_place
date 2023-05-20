@@ -1,6 +1,6 @@
 import sqlite3
 
-con = sqlite3.connect('test_base.sqlite')
+con = sqlite3.connect('../test_base.sqlite')
 cur = con.cursor()
 
 query_1 = '''CREATE TABLE IF NOT EXISTS users(
