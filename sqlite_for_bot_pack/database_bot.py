@@ -32,3 +32,21 @@ class BotDataBase:
         )
         self.con.commit()
         return self.con.close()
+
+    def add_user_requests(self, user_id, user_request):
+        self.cur.execute(
+            'INSERT INTO requests(request, user_id) VALUES (?, ?)',
+            (user_request, user_id)
+        )
+        self.con.commit()
+        return self.con.close()
+
+    def get_user_requests(self, user_id):
+        resp = self.cur.execute(
+                '''SELECT request
+                    FROM requests
+                    WHERE user_id= ?''',
+                (user_id, )
+        ).fetchall()
+        self.con.close()
+        return resp
